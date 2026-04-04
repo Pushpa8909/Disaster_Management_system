@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Emergency Alert System</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f9;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 500px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      color: #d32f2f;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    select, textarea, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background: #d32f2f;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+    button:hover {
+      background: #b71c1c;
+    }
+    .alert {
+      margin-top: 15px;
+      padding: 10px;
+      background: #ffebee;
+      border: 1px solid #d32f2f;
+      border-radius: 5px;
+      color: #d32f2f;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>🚨 Report Emergency</h2>
+    <label for="type">Disaster Type:</label>
+    <select id="type">
+      <option value="fire">🔥 Fire</option>
+      <option value="flood">🌊 Flood</option>
+      <option value="accident">🚗 Accident</option>
+      <option value="medical">💊 Medical Emergency</option>
+    </select>
+
+    <label for="details">Incident Details:</label>
+    <textarea id="details" rows="4" placeholder="Describe the emergency..."></textarea>
+
+    <button onclick="sendAlert()">Send Alert</button>
+
+    <div id="alertBox" class="alert"></div>
+  </div>
+
+  <script>
+    function sendAlert() {
+      const type = document.getElementById('type').value;
+      const details = document.getElementById('details').value;
+
+      if (!details) {
+        alert("Please enter incident details!");
+        return;
+      }
+
+      // Capture GPS location
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(position => {
+          const lat = position.coords.latitude;
+          const lon = position.coords.longitude;
+
+          document.getElementById('alertBox').style.display = "block";
+          document.getElementById('alertBox').innerHTML =
+            `<strong>Alert Sent!</strong><br>
+             Type: ${type}<br>
+             Details: ${details}<br>
+             Location: (${lat.toFixed(4)}, ${lon.toFixed(4)})`;
+        });
+      } else {
+        alert("Geolocation not supported!");
+      }
+    }
+  </script>
+</body>
+</html>
