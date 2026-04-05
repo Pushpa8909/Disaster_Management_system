@@ -26,25 +26,19 @@ function Login({ setRole }) {
 
   return (
     <div className="login-wrapper">
-
       <div className="overlay"></div>
-
       <div className="login-center">
         <div className="login-card">
-
           <h1 className="title">🌍 Disaster Management Portal</h1>
-
           {!selectedRole ? (
             <>
               <p className="subtitle">Select your role to continue</p>
-
               <button
                 className="role-btn user"
                 onClick={() => setSelectedRole("user")}
               >
                 Continue as User
               </button>
-
               <button
                 className="role-btn admin"
                 onClick={() => setSelectedRole("admin")}
@@ -54,42 +48,29 @@ function Login({ setRole }) {
             </>
           ) : (
             <>
-              <h2>
-                {selectedRole === "admin"
-                  ? "Admin Login"
-                  : "User Login"}
-              </h2>
-
+              <h2>{selectedRole === "admin" ? "Admin Login" : "User Login"}</h2>
               <input
                 type="text"
                 placeholder="Username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
               />
-
               <input
                 type="password"
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
-
               <button className="login-btn" onClick={handleLogin}>
                 Login
               </button>
-
-              <p
-                className="back-link"
-                onClick={() => setSelectedRole(null)}
-              >
+              <p className="back-link" onClick={() => setSelectedRole(null)}>
                 ← Change Role
               </p>
             </>
           )}
-
         </div>
       </div>
-
     </div>
   );
 }
